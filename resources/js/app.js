@@ -58,6 +58,5 @@ const app = new Vue({
             this.$store.dispatch('showMessages', window.app.messages)
         }
 
-        // console.log(window.app.messages)
     }
 });

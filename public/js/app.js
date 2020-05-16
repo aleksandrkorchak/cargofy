@@ -1920,7 +1920,6 @@ __webpack_require__.r(__webpack_exports__);
   name: "Errors",
   computed: {
     errors: function errors() {
-      console.log(this.$store.state.error);
       return this.$store.state.error.list;
     }
   }
@@ -1964,7 +1963,6 @@ __webpack_require__.r(__webpack_exports__);
   name: "LanguagesList",
   data: function data() {
     return {
-      // languages: this.$store.state.settings.languages,
       localization: this.$store.state.settings.localization
     };
   },
@@ -2036,8 +2034,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LoadsList",
-  props: ['loads' // 'locale'
-  ],
+  props: ['loads'],
   data: function data() {
     return {
       locale: this.$store.state.settings.locale,
@@ -2047,11 +2044,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getUriGoogleStaticMap: function getUriGoogleStaticMap(latitude, longitude) {
-      var key = 'AIzaSyDTEQ8y-8VRlAvBNAIjAhokskWFXr5bd98';
       var url = new URL('https://maps.googleapis.com/maps/api/staticmap');
       url.searchParams.append('markers', "".concat(latitude, ",").concat(longitude));
       url.searchParams.append('size', '280x170');
-      url.searchParams.append('key', key);
+      url.searchParams.append('key', "AIzaSyDTEQ8y-8VRlAvBNAIjAhokskWFXr5bd98");
       return url.toString();
     },
     clickListItem: function clickListItem(event, loadId) {
@@ -52282,8 +52278,7 @@ var app = new Vue({
 
     if (window.app.messages) {
       this.$store.dispatch('showMessages', window.app.messages);
-    } // console.log(window.app.messages)
-
+    }
   }
 });
 
@@ -52797,26 +52792,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       state.timer = payload;
     },
     saveErrors: function saveErrors(state, errors) {
-      console.log('Blade: ', errors); // errors.forEach(error => {
-      //     state.list.push(error)
-      // })
-
       if (errors instanceof Array) {
         errors.forEach(function (error) {
           state.list.push(error);
         });
       } else if (_typeof(errors) === 'object' && errors !== null) {
         for (var key in errors) {
-          // console.log('Error.js saveError for: ', errors[key])
-          // state.list.push(errors[key])
           errors[key].forEach(function (error) {
             state.list.push(error);
           });
         }
-      } else {
-        console.log('Cannot to saveErrors because the variable is not an object');
-      } // console.log('Error.js saveError state.list: ', state.list)
-
+      }
     }
   },
   actions: {
@@ -52902,7 +52888,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     saveMessage: function saveMessage(state, message) {
       state.list.push(message);
-      console.log(state.list);
     },
     timerMessage: function timerMessage(state, payload) {
       state.timer = payload;

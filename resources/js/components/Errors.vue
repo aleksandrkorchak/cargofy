@@ -12,7 +12,6 @@
 
         computed: {
             errors() {
-                console.log(this.$store.state.error)
                 return  this.$store.state.error.list;
             }
 

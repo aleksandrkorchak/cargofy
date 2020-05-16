@@ -51,7 +51,6 @@
 
         props: [
             'loads',
-            // 'locale'
         ],
 
         data() {
@@ -64,11 +63,10 @@
 
         methods: {
             getUriGoogleStaticMap(latitude, longitude) {
-                let key = 'AIzaSyDTEQ8y-8VRlAvBNAIjAhokskWFXr5bd98'
                 let url = new URL('https://maps.googleapis.com/maps/api/staticmap');
                 url.searchParams.append('markers', `${latitude},${longitude}`)
                 url.searchParams.append('size', '280x170')
-                url.searchParams.append('key', key)
+                url.searchParams.append('key', process.env.MIX_APP_GOOGLE_KEY)
 
                 return url.toString()
             },

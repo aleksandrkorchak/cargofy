@@ -57,7 +57,6 @@
                     .then((response) => {
                         const slug = response['data'].slug
 
-
                         //Get list of loads
                         this.getLoadsList(slug)
 

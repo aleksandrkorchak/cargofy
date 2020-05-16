@@ -26,7 +26,6 @@
         name: "LanguagesList",
         data() {
             return {
-                // languages: this.$store.state.settings.languages,
                 localization: this.$store.state.settings.localization
             }
         },

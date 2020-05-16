@@ -14,7 +14,6 @@
             messages() {
                 return  this.$store.state.message.list;
             }
-
         }
     }
 </script>

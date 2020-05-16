@@ -11,7 +11,6 @@ export default {
 
         saveMessage(state, message) {
             state.list.push(message)
-            console.log(state.list)
         },
 
         timerMessage(state, payload){

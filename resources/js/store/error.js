@@ -15,10 +15,6 @@ export default {
         },
 
         saveErrors(state, errors) {
-            console.log('Blade: ', errors)
-            // errors.forEach(error => {
-            //     state.list.push(error)
-            // })
             if (errors instanceof Array){
                 errors.forEach(error => {
                     state.list.push(error)
@@ -27,19 +23,12 @@ export default {
 
             else if (typeof errors === 'object' && errors !== null) {
                 for (let key in errors) {
-                    // console.log('Error.js saveError for: ', errors[key])
-                    // state.list.push(errors[key])
-
                     errors[key].forEach(error => {
                         state.list.push(error)
                     })
                 }
             }
-            else{
-                console.log('Cannot to saveErrors because the variable is not an object')
-            }
 
-            // console.log('Error.js saveError state.list: ', state.list)
         },
     },
 
