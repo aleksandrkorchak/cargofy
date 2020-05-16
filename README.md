@@ -1,5 +1,5 @@
-# skyup
-Simple test application where using a varied range of technologies, 
+# Cargofy
+Simple test application "Cargo Exchange" where using a varied range of technologies, 
 such as: 
 1. __Laravel 7.0__
 2. __Vue.js__
