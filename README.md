@@ -29,7 +29,7 @@ To install the application you need:
    DB_PASSWORD=secret
    ```
 8. Drop all tables in the database, migrate and run all database seeds:
-	- `php artisan migrate:fresh --seed`
+	- `php artisan migrate:refresh --seed`
 9. To create the symbolic link:
     - `php artisan storage:link`
 9. Set up domain on the Webserver
