@@ -18,6 +18,6 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get('/slug', 'ApiController@slug');
-Route::get('/loads', 'ApiController@loads');
-Route::get('/lang', 'ApiController@languages');
+//Route::get('/slug', 'ApiController@slug');
+//Route::get('/loads', 'ApiController@loads');
+//Route::get('/lang', 'ApiController@languages');

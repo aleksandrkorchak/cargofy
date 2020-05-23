@@ -13,19 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'LoadController@getLoadsTransportRoutes');
-Route::get('/from/{city}', 'LoadController@getLoadsTransportRoutes');
-Route::get('/{locale}/from/{city}', 'LoadController@getLoadsTransportRoutes');
-Route::get('/{locale}', 'LoadController@getLoadsTransportRoutes');
+
+
+Route::group(['prefix' => App\Http\Middleware\Locale::getLocale()], function (){
+    Route::get('/', 'LoadController@index');
+    Route::get('/from/{city:slug}', 'CityLoadController');
+});
 
 Route::post('/loads', 'LoadController@store')->name('loads.store');
-
-Route::fallback(function() {
-    if(\Illuminate\Support\Facades\Lang::getLocale() == 'en'){
-        return redirect('/');
-    }
-    else{
-        return redirect('/' . \Illuminate\Support\Facades\Lang::getLocale());
-    }
-});
 

@@ -18,8 +18,8 @@ class CreateLoadsTable extends Migration
             $table->unsignedBigInteger('city_from_id');
             $table->unsignedBigInteger('city_to_id');
             $table->json('name');
-            $table->float('volume');
-            $table->string('photo');
+            $table->unsignedFloat('volume');
+            $table->string('photo')->nullable();
             $table->timestamps();
 
             $table->foreign('city_from_id')

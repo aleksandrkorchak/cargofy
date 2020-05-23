@@ -1,7 +1,9 @@
 <template>
     <div v-if="messages.length" class="container">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <div v-for="message in messages">{{ message }}</div>
+            <div v-for="message in messages">
+                {{ message }}
+            </div>
         </div>
     </div>
 </template>
@@ -12,9 +14,10 @@
 
         computed: {
             messages() {
-                return  this.$store.state.message.list;
+                console.log('From message:', this.$store.state.message.list)
+                return  this.$store.state.message.list
             }
-        }
+        },
     }
 </script>
 

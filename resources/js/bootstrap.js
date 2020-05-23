@@ -40,10 +40,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-$(document).ready(function () {
-    $('.custom-file-input').on('change', function() {
-        let fileName = $(this).val().split('\\').pop();
-        $(this).next('.custom-file-label').addClass("selected").html(fileName);
-    });
-})
+// $(document).ready(function () {
+//     $('.custom-file-input').on('change', function() {
+//         let fileName = $(this).val().split('\\').pop();
+//         $(this).next('.custom-file-label').addClass("selected").html(fileName);
+//     });
+// })
 

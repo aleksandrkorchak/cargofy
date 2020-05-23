@@ -12,9 +12,13 @@
 
         computed: {
             errors() {
-                return  this.$store.state.error.list;
+                if (!localStorage.modal){
+                    return  this.$store.state.error.list;
+                }
+                else {
+                    return []
+                }
             }
-
         }
     }
 </script>

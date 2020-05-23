@@ -3,7 +3,7 @@ export default {
         localization: [],
         languages: [],
         locale: 'en',
-        modal: false
+        modal: false,
     },
     getters: {
 

@@ -1,11 +1,17 @@
 <template>
-    <form ref="form" class="form-inline my-2 my-lg-0" :action="route" @submit.prevent="">
+    <form
+        ref="form"
+        class="form-inline my-2 my-lg-0"
+        @submit.prevent=""
+    >
         <input class="form-control mr-sm-2"
                type="search"
+               :value="city"
                :placeholder="localization['nav_input_placeholder']"
                @input="city = $event.target.value"
                @keyup.enter="submitForm"
                aria-label="Search">
+
         <input
             ref="button"
             class="btn btn-outline-success my-2 my-sm-0"
@@ -19,25 +25,41 @@
     export default {
         name: "search",
 
+        props: [
+            'cities',
+            'locale',
+        ],
+
         data() {
             return {
                 localization: this.$store.state.settings.localization,
-                locale: this.$store.state.settings.locale,
                 city: '',
                 route: '',
             }
         },
+
         methods: {
 
             /*
              * Search button clicked
              */
             submitForm() {
-                if (this.city === '') {
-                    this.getLoadsList('')
-                } else {
-                    this.getSlugForCityName(this.city)
+
+                let slug = this.getSlugForCityName(this.city)
+
+                if (slug || slug === ''){
+                    let path = this.getPath(slug)
+
+                    console.log('Form action:', path)
+
+                    localStorage.oldSearch = this.city
+                    this.$refs.form.setAttribute('action', path)
+                    this.$refs.form.submit()
                 }
+                else {
+                    this.$store.commit('loads', [])
+                }
+
             },
 
 
@@ -45,97 +67,80 @@
              * Get slug for city name
              */
             getSlugForCityName(cityName) {
-                //Disable Search Button
-                this.$refs.button.setAttribute('disabled', 'true')
+                if (cityName === '')
+                {
+                    return ''
+                }
 
-                axios.get('/api/slug',
-                    {
-                        params: {
-                            city: cityName
+                let slug = false
+                if(cityName){
+                    this.cities.forEach((item) => {
+                        if (item['names'].includes(cityName.toLowerCase())){
+                            slug = item['slug']
                         }
                     })
-                    .then((response) => {
-                        const slug = response['data'].slug
+                }
 
-                        //Get list of loads
-                        this.getLoadsList(slug)
-
-                    })
-                    .catch(error => {
-                        const errors = error.response.data.errors;
-                        this.$store.dispatch('showErrors', errors)
-                    })
-                    .then(() => {
-                        //Enable Search Button
-                        this.$refs.button.removeAttribute('disabled')
-                    })
-
+                return slug
             },
 
 
             /*
-             *  Get list of loads
+             * Get path for submit
              */
-            getLoadsList(slug) {
-                axios.get('/api/loads', {
-                    params: {
-                        slug
-                    }
-                })
-                    .then(response => {
-                        this.changeBrowserAddress(slug)
+            getPath(slug){
+                let route = ''
 
-                        this.$store.commit('loads', response.data)
-                        this.getLanguagesList(this.route)
-                    })
-                    .catch(error => {
-                        const errors = error.response.data.errors;
-                        this.$store.dispatch('showErrors', errors)
-                    })
+                if (slug) {
+                    if (this.locale === 'en') {
+                        route = '/from/' + slug
+                    } else {
+                        route = '/' + this.locale + '/from/' + slug
+                    }
+                }
+                else {
+                    if (this.locale === 'en') {
+                        route = '/'
+                    } else {
+                        route = '/' + this.locale
+                    }
+                }
+
+                return route
             },
 
-
-            /*
-             *  Get list of languages
-             */
-            getLanguagesList(currentPath) {
-                axios.get('/api/lang', {
-                    params: {
-                        path: currentPath
-                    }
-                })
-                    .then(response => {
-                        this.$store.commit('setLanguages', response.data)
-                    })
-                    .catch(error => {
-                        const errors = error.response.data.errors;
-                        this.$store.dispatch('showErrors', errors)
-                    })
-            },
 
 
             /*
              *  Change browser address
              */
-            changeBrowserAddress(slug) {
-                if (slug) {
-                    if (this.locale === 'en') {
-                        this.route = '/from/' + slug
-                    } else {
-                        this.route = '/' + this.locale + '/from/' + slug
-                    }
-                }
-                else {
-                    if (this.locale === 'en') {
-                        this.route = '/'
-                    } else {
-                        this.route = '/' + this.locale
-                    }
-                }
-                //Change browser address bar
-                window.history.pushState({}, null, this.route)
-            }
+            // changeBrowserAddress(slug) {
+            //     if (slug) {
+            //         if (this.locale === 'en') {
+            //             this.route = '/from/' + slug
+            //         } else {
+            //             this.route = '/' + this.locale + '/from/' + slug
+            //         }
+            //     }
+            //     else {
+            //         if (this.locale === 'en') {
+            //             this.route = '/'
+            //         } else {
+            //             this.route = '/' + this.locale
+            //         }
+            //     }
+            //     //Change browser address bar
+            //     window.history.pushState({}, null, this.route)
+            // }
 
+
+        },
+
+        mounted() {
+            this.city = localStorage.oldSearch ? localStorage.oldSearch : ''
+        },
+
+        created() {
 
         }
 

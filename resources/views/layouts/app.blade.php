@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Laravel</title>
 
@@ -10,10 +12,9 @@
     <script>
         window.app = {
             localization: @json($localization),
-            languages: @json($languages),
-            locale: @json($locale),
             errors: @json($errors->all()),
             messages: @json(session('messages'))
+
         }
     </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -27,19 +28,13 @@
         @include('navbar')
 
         @yield('content')
-
-
-
-{{--        @if(session('messages'))--}}
-{{--            <div class="alert alert-success">--}}
-{{--                {{ session('messages') }}--}}
-{{--            </div>--}}
-{{--        @endif--}}
-
-
     </div>
 
-    @include('modal')
+
+    <modal
+        :cities='@json($cities)'
+        :old='@json(Session::getOldInput())'
+    ></modal>
 
 
 </div>

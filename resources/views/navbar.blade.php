@@ -1,6 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-    {{--    <a class="navbar-brand" href="#">{{ $localization['nav_brand'] }}</a>--}}
-
 
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -12,31 +10,26 @@
 
         <div class="d-flex w-100">
 
-            <div class="btn-group mr-3">
-                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    {{ $localization['nav_main_menu_title'] }}
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" data-toggle="modal"
-                       data-target="#exampleModal">{{ $localization['nav_main_menu_add_load'] }}</a>
-                </div>
+            <div>
+                <main-menu></main-menu>
             </div>
 
 
             <div>
-                <search></search>
+                <search
+                    :cities='@json($cities)'
+                    :locale='@json(app()->getLocale())'
+                ></search>
             </div>
-
-            {{--            <button type="button" class="btn btn-outline-primary ml-5 ">Добавить</button>--}}
 
 
             <div class="ml-auto">
-                <languages-list></languages-list>
+                <languages-list
+                    :languages='@json($languages)'
+                ></languages-list>
             </div>
 
         </div>
-
 
     </div>
 </nav>

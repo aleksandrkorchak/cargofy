@@ -36,10 +36,19 @@ class Load extends Model
     public $translatable = ['name'];
 
 
+//    public function cityFrom(){
+//        return $this->belongsTo('App\Models\City', 'city_from_id', 'id', 'loads_city_from_id_foreign');
+//    }
+//    public function cityTo(){
+//        return $this->belongsTo('App\Models\City', 'city_to_id', 'id', 'loads_city_to_id_foreign');
+//    }
+
+
     public function cityFrom(){
-        return $this->belongsTo('App\Models\City', 'city_from_id', 'id', 'loads_city_from_id_foreign');
+        return $this->belongsTo(City::class, 'city_from_id');
     }
     public function cityTo(){
-        return $this->belongsTo('App\Models\City', 'city_to_id', 'id', 'loads_city_to_id_foreign');
+        return $this->belongsTo(City::class, 'city_to_id');
     }
+
 }

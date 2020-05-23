@@ -8,6 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import store from './store'
+import modal from './modal'
 
 
 /**
@@ -36,6 +37,7 @@ import LanguagesList from "./components/LanguagesList";
 import Errors from "./components/Errors";
 import Messages from "./components/Messages";
 import MainMenu from "./components/MainMenu";
+import Modal from "./components/Modal";
 
 const app = new Vue({
     el: '#app',
@@ -46,17 +48,35 @@ const app = new Vue({
         'search': Search,
         'languagesList': LanguagesList,
         'errors': Errors,
-        'messages': Messages
+        'messages': Messages,
+        'modal': Modal
     },
     created(){
         this.$store.commit('setLocalization', window.app.localization)
         this.$store.commit('setLanguages', window.app.languages)
         this.$store.commit('setLocale', window.app.locale)
-        this.$store.dispatch('showErrors', window.app.errors)
 
+        if (!localStorage.modal && window.app.errors.length){
+            this.$store.dispatch('showErrors', window.app.errors)
+        }
+
+        console.log(window.app.messages)
         if (window.app.messages){
             this.$store.dispatch('showMessages', window.app.messages)
         }
 
+        // console.log('Errors from main Vue APP:', window.app.errors)
+
+
+
+    },
+
+    mounted(){
+        //There are errors in modal form
+        if (localStorage.modal && window.app.errors.length){
+            this.$store.commit('saveErrors', window.app.errors)
+            this.$modal.show('addLoad')
+        }
     }
+
 });

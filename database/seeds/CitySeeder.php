@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 
 class CitySeeder extends Seeder
@@ -11,7 +12,7 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('cities')->insert([
+        City::insert([
             [
                 'name' => collect([
                     'ua' => 'Київ',

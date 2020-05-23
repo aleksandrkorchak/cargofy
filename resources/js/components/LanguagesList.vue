@@ -24,17 +24,18 @@
 <script>
     export default {
         name: "LanguagesList",
+        props: [
+            'languages'
+        ],
+
         data() {
             return {
                 localization: this.$store.state.settings.localization
             }
         },
-        computed: {
-            languages(){
-                return this.$store.state.settings.languages
-            }
-        },
+
         created() {
+            console.log(this.languages)
         }
     }
 </script>
